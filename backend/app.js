@@ -32,13 +32,20 @@ const app = express();
 // CORS Configuration
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 app.use(cors({
-    origin: [
-        "http://localhost:5173",
-        "https://devmind-3iw85th3q-ashutosh637s-projects.vercel.app"
+    origin: true,
+    credentials: true,
+    methods: [
+        "GET",
+        "POST",
+        "PUT",
+        "DELETE",
+        "PATCH",
+        "OPTIONS"
     ],
-    methods: ["GET","POST","PUT","DELETE","OPTIONS"],
-    allowedHeaders: ["Content-Type","Authorization"],
-    credentials: true
+    allowedHeaders: [
+        "Content-Type",
+        "Authorization"
+    ]
 }));
 
 app.options("*", cors());
