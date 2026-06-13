@@ -7,7 +7,8 @@
  */
 
 import React, { useState, useRef, useEffect } from 'react';
-import { DiJavascript1, DiReact, DiPython, DiHtml5, DiCss3 } from 'react-icons/di';
+import { DiJavascript1, DiReact, DiPython, DiHtml5, DiCss3, DiJava } from 'react-icons/di';
+import { SiCplusplus } from 'react-icons/si';
 import { VscJson, VscMarkdown, VscFile } from 'react-icons/vsc';
 
 /* ── File icon mapping by extension ─── */
@@ -21,6 +22,8 @@ const FILE_ICONS = {
   css: <DiCss3 color="#1572B6" size={16} />,
   json: <VscJson color="#CBCB41" size={16} />,
   md: <VscMarkdown color="#519ABA" size={16} />,
+  java: <DiJava color="#E76F00" size={16} />,
+  cpp: <SiCplusplus color="#00599C" size={16} />,
   default: <VscFile color="#A1A1AA" size={16} />,
 };
 

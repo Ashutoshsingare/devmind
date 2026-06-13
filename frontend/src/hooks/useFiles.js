@@ -68,9 +68,34 @@ export default function useFiles() {
         throw new Error(body.error || `Failed to load files: ${res.status}`);
       }
       const data = await res.json();
+      let loadedFiles = data.files || [];
+
+      // Create default python file if no files exist
+      if (loadedFiles.length === 0) {
+        try {
+          const defaultRes = await fetch(`${API_URL}/api/files`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ 
+              name: 'main.py', 
+              language: 'python', 
+              content: '# Welcome to DevMind!\n# Write your Python code below\n\nprint("Hello, World!")\n' 
+            }),
+          });
+          if (defaultRes.ok) {
+            const defData = await defaultRes.json();
+            loadedFiles = [defData.file];
+            setTabs((prev) => (prev.includes(defData.file.id) ? prev : [...prev, defData.file.id]));
+            setActiveFile(defData.file.id);
+          }
+        } catch (e) {
+          console.error('[useFiles] failed to create default file:', e);
+        }
+      }
+
       setFiles((prev) => {
         const newFilesMap = {};
-        (data.files || []).forEach((file) => {
+        loadedFiles.forEach((file) => {
           if (prev[file.id]) {
             // Preserve locally modified unsaved content across reloads
             newFilesMap[file.id] = { ...file, content: prev[file.id].content };
