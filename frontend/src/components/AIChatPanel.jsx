@@ -57,9 +57,9 @@ export default function AIChatPanel({
     sendMessage(text, fileContent, language || 'javascript');
   }, [inputValue, isLoading, sendMessage, fileContent, language]);
 
-  /* ── Keyboard: Ctrl+Enter to send ───── */
+  /* ── Keyboard: Enter to send ───── */
   const handleKeyDown = useCallback((e) => {
-    if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) {
+    if (e.key === 'Enter') {
       e.preventDefault();
       handleSend();
     }
@@ -383,7 +383,7 @@ export default function AIChatPanel({
             }}
           />
           <span style={{ fontSize: '10px', color: '#94A3B8', marginRight: '8px', userSelect: 'none' }}>
-            Ctrl+Enter
+            Enter
           </span>
           <button
             onClick={handleSend}

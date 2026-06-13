@@ -93,6 +93,20 @@ export default function useFiles() {
         }
       }
 
+      // Auto-open logic
+      const storedActive = sessionStorage.getItem('devmind_files_active') || null;
+      let targetFileId = storedActive;
+      
+      if (!targetFileId || !loadedFiles.find(f => f.id === targetFileId)) {
+        const mainPy = loadedFiles.find(f => f.name === 'main.py');
+        targetFileId = mainPy ? mainPy.id : (loadedFiles[0]?.id || null);
+      }
+
+      if (targetFileId) {
+        setActiveFile(targetFileId);
+        setTabs((currTabs) => currTabs.includes(targetFileId) ? currTabs : [...currTabs, targetFileId]);
+      }
+
       setFiles((prev) => {
         const newFilesMap = {};
         loadedFiles.forEach((file) => {
