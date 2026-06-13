@@ -1,0 +1,34 @@
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# DevMind — .gitignore
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+build/
+
+# Environment files (contain secrets)
+.env
+.env.local
+.env.*.local
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+
+# Test coverage
+coverage/
+
+# IDE
+.vscode/settings.json
+.idea/
+
+# Misc
+*.tgz
+.cache/
