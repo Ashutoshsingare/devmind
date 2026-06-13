@@ -1,4 +1,5 @@
 import React, { useRef, useEffect, useCallback, useState } from 'react';
+import { API_URL } from '../config';
 import { Terminal, Play, Square, Trash2, CircleAlert, Bug, FileText } from 'lucide-react';
 
 /* ── Language detection ── */
@@ -76,7 +77,7 @@ export default function ConsolePanel({ useRunnerHook, activeFile, fileContent })
     
     try {
       const lang = detectLanguage(activeFile);
-      const res = await fetch('/api/debug/run', {
+      const res = await fetch(`${API_URL}/api/debug/run`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ filename: activeFile, language: lang })
@@ -140,7 +141,7 @@ export default function ConsolePanel({ useRunnerHook, activeFile, fileContent })
       setTerminalHistory(prev => [...prev, { type: 'command', text: cmd }]);
       
       try {
-        const res = await fetch('/api/terminal/exec', {
+        const res = await fetch(`${API_URL}/api/terminal/exec`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ command: cmd })

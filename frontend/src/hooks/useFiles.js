@@ -14,6 +14,7 @@
  */
 
 import { useState, useEffect, useCallback } from 'react';
+import { API_URL } from '../config';
 
 /**
  * Detect language from filename extension.
@@ -61,7 +62,7 @@ export default function useFiles() {
   // ── Load all files on mount ────────────
   const loadAll = useCallback(async () => {
     try {
-      const res = await fetch('/api/files');
+      const res = await fetch(`${API_URL}/api/files`);
       if (!res.ok) {
         const body = await res.json().catch(() => ({}));
         throw new Error(body.error || `Failed to load files: ${res.status}`);
@@ -92,7 +93,7 @@ export default function useFiles() {
   const createFile = useCallback(async (name, content = '') => {
     try {
       const language = detectLanguage(name);
-      const res = await fetch('/api/files', {
+      const res = await fetch(`${API_URL}/api/files`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name, language, content }),
@@ -131,7 +132,7 @@ export default function useFiles() {
       }
 
       // Otherwise fetch from API
-      const res = await fetch(`/api/files/${fileId}`);
+      const res = await fetch(`${API_URL}/api/files/${fileId}`);
       if (!res.ok) {
         const body = await res.json().catch(() => ({}));
         throw new Error(body.error || `Failed to open file: ${res.status}`);
@@ -155,7 +156,7 @@ export default function useFiles() {
   const saveFile = useCallback(async (fileId, content) => {
     try {
       const existing = files[fileId];
-      const res = await fetch(`/api/files/${fileId}`, {
+      const res = await fetch(`${API_URL}/api/files/${fileId}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -183,7 +184,7 @@ export default function useFiles() {
   // ── Rename file ────────────────────────
   const renameFile = useCallback(async (fileId, newName) => {
     try {
-      const res = await fetch(`/api/files/${fileId}`, {
+      const res = await fetch(`${API_URL}/api/files/${fileId}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -211,7 +212,7 @@ export default function useFiles() {
   // ── Delete a file ──────────────────────
   const deleteFile = useCallback(async (fileId) => {
     try {
-      const res = await fetch(`/api/files/${fileId}`, {
+      const res = await fetch(`${API_URL}/api/files/${fileId}`, {
         method: 'DELETE',
       });
 

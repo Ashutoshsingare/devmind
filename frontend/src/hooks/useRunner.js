@@ -12,6 +12,7 @@
  */
 
 import { useState, useEffect, useCallback } from 'react';
+import { API_URL } from '../config';
 
 /**
  * Detect language from filename extension.
@@ -87,7 +88,7 @@ export default function useRunner() {
 
 
     try {
-      const res = await fetch('/api/run', {
+      const res = await fetch(`${API_URL}/api/run`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ code: content, language: lang }),

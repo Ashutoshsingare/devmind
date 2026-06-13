@@ -11,6 +11,7 @@
  */
 
 import { useState, useEffect, useCallback } from 'react';
+import { API_URL } from '../config';
 
 /**
  * Helper: call the AI API endpoint.
@@ -18,7 +19,7 @@ import { useState, useEffect, useCallback } from 'react';
  * @returns {Promise<string>} — The AI response text
  */
 async function callAI(body) {
-  const res = await fetch('/api/ai', {
+  const res = await fetch(`${API_URL}/api/ai`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(body),
