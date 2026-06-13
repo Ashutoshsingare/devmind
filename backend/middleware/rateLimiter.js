@@ -19,6 +19,7 @@ const globalLimiter = rateLimit({
   max: 100,
   standardHeaders: true,
   legacyHeaders: false,
+  skip: (req) => req.method === 'OPTIONS',
   handler: (_req, res) => {
     res.status(429).json({
       error: 'Too many requests. Please try again later. Limit: 100 requests per minute.',
@@ -35,6 +36,7 @@ const aiLimiter = rateLimit({
   max: 10,
   standardHeaders: true,
   legacyHeaders: false,
+  skip: (req) => req.method === 'OPTIONS',
   handler: (_req, res) => {
     res.status(429).json({
       error: 'AI request limit exceeded. Please wait before making another AI request. Limit: 10 requests per minute.',
